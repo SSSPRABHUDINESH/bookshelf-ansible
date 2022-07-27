@@ -6,3 +6,4 @@
     - fluentd
     - cloud_sql_proxy
     - install_configure_app
+    - supervisor

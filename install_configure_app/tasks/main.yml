@@ -1,5 +1,9 @@
 ---
 # tasks file for install_configure_app
+ - name: Updating apt
+   apt:
+    update_cache: yes
+
  - name: installing git
    apt:
     name: git
@@ -62,5 +66,25 @@
    git:
     repo: https://source.developers.google.com/p/gcp-2021-2-bookshelf-dineshs/r/bookshelf_cloud_repo_ansible_new
     dest: /opt/app
+ - name: create ve folder
+   file:
+    name: /opt/app/env
+    state: directory
+ 
+ - name: install app dependencies
+   become: true
+   pip:
+     virtualenv: /opt/app/env
+     virtualenv_python: python3
+     virtualenv_command: virtualenv
+     requirements: /opt/app/requirements.txt
+     extra_args: "--prefer-binary"
+     
+ - name: Run python bookshelf/model_cloudsql.py command for database tables
+   become: true
+   shell: /opt/app/env/bin/python /opt/app/bookshelf/model_cloudsql.py
+   register: res
 
-
+ - name: Getting stdout from the output
+   debug:
+    var: res.stdout

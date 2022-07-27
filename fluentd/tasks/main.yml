@@ -1,0 +1,9 @@
+---
+
+ - name: installing fluentd
+   get_url:
+    url: https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+    dest: /usr/local/bin
+    mode: 0777
+ - name: execute the installed fluentd file
+   command: sh /usr/local/bin add-google-cloud-ops-agent-repo.sh

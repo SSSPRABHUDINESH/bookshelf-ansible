@@ -1,0 +1,8 @@
+---
+
+ - hosts: remote
+   become: yes
+   roles: 
+    - fluentd
+    - cloud_sql_proxy
+    - install_configure_app

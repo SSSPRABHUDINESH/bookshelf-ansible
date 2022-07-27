@@ -1,0 +1,29 @@
+---
+    - name: Check cloud_sql_proxy is not install
+      stat:
+        path: "{{ cloud_sql_proxy_install_path }}"
+      register: cloud_sql_proxy_bin
+
+    - name: Install cloud_sql_proxy from {{ cloud_sql_proxy_download_url }}
+      get_url:
+        url: "{{ cloud_sql_proxy_download_url }}"
+        dest: "{{ cloud_sql_proxy_install_path }}"
+        owner: "{{ cloud_sql_proxy_owner }}"
+        group: "{{ cloud_sql_proxy_group }}"
+        mode: 0755
+      when: cloud_sql_proxy_bin.stat.exists == False
+    - name: Update {{ cloud_sql_proxy_service_path }} from template {{ cloud_sql_proxy_service_template }}
+      template:
+        src: "{{ cloud_sql_proxy_service_template }}"
+        dest: "{{ cloud_sql_proxy_service_path }}"
+        owner: "{{ cloud_sql_proxy_owner }}"
+        group: "{{ cloud_sql_proxy_group }}"
+        mode: 0644
+      register: cloud_sql_proxy_service_update
+
+    - name: Enable {{ cloud_sql_proxy_service_path }}
+      systemd:
+        name: "{{ cloud_sql_proxy_service_path }}"
+        daemon_reload: "yes"
+        enabled: "yes"
+      when: cloud_sql_proxy_service_update.changed

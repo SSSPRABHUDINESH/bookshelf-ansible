@@ -1,0 +1,12 @@
+---
+# vars file for cloud_sql_proxy
+cloud_sql_proxy_owner: "root"
+cloud_sql_proxy_group: "root"
+cloud_sql_proxy_install_path: "/usr/local/bin/cloud_sql_proxy"
+cloud_sql_proxy_download_url: "https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64"
+cloud_sql_proxy_socket_dir: "/var/run/cloud-sql-proxy"
+cloud_sql_proxy_install_path: "/usr/local/bin/cloud_sql_proxy"
+cloud_sql_proxy_connection_name: "gcp-2021-2-bookshelf-dineshs:us-central1:bookshelf-sql-instance-20"
+cloud_sql_proxy_tcp_port: "3306"
+cloud_sql_proxy_service_template: "cloud-sql-proxy.service.j2"
+cloud_sql_proxy_service_path: "/etc/systemd/system/cloud-sql-proxy.service"

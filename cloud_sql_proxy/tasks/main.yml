@@ -21,9 +21,8 @@
         mode: 0644
       register: cloud_sql_proxy_service_update
 
-    - name: Enable {{ cloud_sql_proxy_service_path }}
+    - name: start cloud sql proxy service
       systemd:
-        name: "{{ cloud_sql_proxy_service_path }}"
-        daemon_reload: "yes"
-        enabled: "yes"
-      when: cloud_sql_proxy_service_update.changed
+        name: cloud-sql-proxy.service
+        enabled: yes
+        state: started

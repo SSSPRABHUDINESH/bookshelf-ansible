@@ -1,0 +1,8 @@
+---
+# tasks file for supervisor
+ - name: Make sure the pythonapp user owns the application code
+   file:
+     path: /opt/app
+     owner: pythonapp
+     group: pythonapp
+     mode: 0777

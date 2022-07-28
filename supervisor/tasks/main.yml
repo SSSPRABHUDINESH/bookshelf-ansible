@@ -5,4 +5,18 @@
      path: /opt/app
      owner: pythonapp
      group: pythonapp
+  
+ - name: Configure supervisor to start gunicorn inside of our virtualenv and run the application
+   template:
+     src: "{{ supervisord_service_template }}"
+     dest: "{{ supervisord_service_path }}"
+     owner: "{{ supervisord_owner }}"
+     group: "{{ supervisord_group }}"
      mode: 0777
+
+ - name: Reread and updating application, reading supervisorctl
+   become: yes
+   community.general.supervisorctl:
+     name: pythonapp
+     state: present 
+

@@ -1,2 +1,13 @@
 ---
 # vars file for supervisor
+
+supervisord_service_template: "supervisord.service.j2"
+supervisord_service_path: "/etc/supervisor/conf.d/python-app.conf"
+supervisord_owner: "root"
+supervisord_group: "root"
+
+supervisord_directory_path: "/opt/app"
+supervisord_command: "/opt/app/env/bin/honcho start -f ./procfile worker bookshelf"
+supervisord_virtualenv_path: "/opt/app/env"
+supervisord_bin_path: "/opt/app/env/bin"
+user_home_path: "/home/pythonapp"

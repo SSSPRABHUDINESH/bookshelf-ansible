@@ -1,0 +1,16 @@
+# {{ansible_managed}}
+
+[program:pythonapp]
+directory={{supervisord_directory_path}}
+command={{supervisord_command}}
+autostart=true
+autorestart=true
+user=pythonapp
+# Environment variables ensure that the application runs inside of the
+# configured virtualenv.
+environment=VIRTUAL_ENV={{supervisord_virtualenv_path}},PATH={{supervisord_bin_path}},HOME={{user_home_path}},USER="pythonapp"
+stdout_logfile=syslog
+stderr_logfile=syslog
+
+
+[supervisorctl]
